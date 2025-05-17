@@ -32,6 +32,46 @@ theta = gradient_descent(X_b, y, theta, alpha, iterations)
 print("Learned theta:", theta)
 
 
+import numpy as np
+import matplotlib.pyplot as plt
+
+'''
+x = np.array([6.1101,5.5277,8.5186])
+y = np.array([17.592,9.1302,13.662])
+'''
+
+data = np.loadtxt("ex2data1.txt", delimiter=',')
+X = data[:, 0]  # Population
+y = data[:, 1]
+m = len(y)
+
+# Standardize x
+x_mean = np.mean(X)
+x_std = np.std(X)
+x_scaled = (X - x_mean) / x_std
+
+X_b = np.c_[np.ones(m), x_scaled]
+
+theta = np.zeros(2)  # Initialize theta with zeros  
+alpha = 0.01  # learning rate
+iters = 1500 # number of iterations
+
+def compute_cost(x_b, y, theta):
+    errors = x_b @ theta - y
+    cost = (1/(2*m)) * np.dot(errors, errors)
+    return cost
+
+def gradient_descent(x_b, y, theta, alpha, iters):
+    for _ in range(iters):
+        gradient = (1/m) * (x_b.T @ (x_b @ theta - y))
+        theta -= alpha * gradient   
+        
+        
+    return theta
+
+theta = gradient_descent(X_b, y, theta, alpha, iters)
+print(f"Learned theta: {theta}")
+
 # Optional: plot the result
 plt.scatter(X, y, color='red', marker='x', label='Training data')
 plt.plot(X, X_b @ theta, label='Linear regression')
@@ -89,4 +129,4 @@ plt.show()
 
 
 
-plt.show()
+

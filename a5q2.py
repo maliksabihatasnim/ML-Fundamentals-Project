@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Load data from file
-data = np.loadtxt('ex2data2.txt', delimiter=',')
+data = np.loadtxt('ex2data1.txt', delimiter=',')
 X = data[:, 0:2]  # features
 y = data[:, 2]    # target/output
 m = len(y)
